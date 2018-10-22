@@ -86,7 +86,10 @@ class IPFS extends EventEmitter {
     this._libp2pNode = undefined
     this._bitswap = undefined
     this._blockService = new BlockService(this._repo)
-    this._ipld = new Ipld(this._blockService)
+    this._ipld = new Ipld({
+      blockService: this._blockService,
+      formats: [dagCBOR, dagPB]
+    })
     this._preload = preload(this)
     this._mfsPreload = mfsPreload(this)
     this._ipns = new IPNS(null, this)
